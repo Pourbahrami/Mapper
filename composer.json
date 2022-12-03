@@ -1,0 +1,19 @@
+{
+    "name": "pourbahrami/mapper",
+    "description": "A simple package to map data",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Pourbahrami\\Mapper\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hossein Pourbahrami",
+            "email": "hossein.pourbahrami@gmail.com"
+        }
+    ],
+    "require": {}
+}
