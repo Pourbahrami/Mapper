@@ -2,8 +2,6 @@
 
 namespace Pourbahrami\Mapper;
 
-use Illuminate\Support\Arr;
-
 class Mapper
 {
     private $input;
