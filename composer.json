@@ -1,7 +1,7 @@
 {
     "name": "pourbahrami/mapper",
     "description": "A simple package to map data",
-    "type": "project",
+    "type": "laravel-package",
     "license": "MIT",
     "minimum-stability": "dev",
     "autoload": {
