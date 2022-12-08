@@ -5,6 +5,8 @@ namespace Pourbahrami\Mapper;
 class Mapper
 {
     private $input;
+    private $map;
+    private $omit;
 
     function __construct(array $input)
     {
@@ -21,22 +23,25 @@ class Mapper
         return new Mapper(json_decode(json_encode(simplexml_load_string($xml)), true));
     }
 
-    public function map(array $map)
+    public function map(array $map, array $omit = [])
     {
-        return $this->remap($this->input, $map);
+        $this->map = $map;
+        $this->omit = $omit;
+        return $this->remap($this->input);
     }
 
-    private function remap($value, array $map, $parents = '')
+    private function remap($value, $parents = '')
     {
         if (is_array($value)) {
             $newArr = [];
             foreach ($value as $key => $val) {
-                if (!is_numeric($key)) {
-                    $fullKey = $parents ? $parents . '.' . $key : $key;
-                    $newKey = isset($map[$fullKey]) ? $map[$fullKey] : $key;
-                    $newArr[$newKey] = $this->remap($val, $map, $fullKey);
+                if (is_numeric($key)) {
+                    $newArr[$key] = $this->remap($val, $parents);
                 } else {
-                    $newArr[$key] = $this->remap($val, $map, $parents);
+                    if (in_array($key, $this->omit)) continue;
+                    $fullKey = $parents ? $parents . '.' . $key : $key;
+                    $newKey = isset($this->map[$fullKey]) ? $this->map[$fullKey] : $key;
+                    $newArr[$newKey] = $this->remap($val, $fullKey);
                 }
             }
             return $newArr;
