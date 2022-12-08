@@ -38,8 +38,8 @@ class Mapper
                 if (is_numeric($key)) {
                     $newArr[$key] = $this->remap($val, $parents);
                 } else {
-                    if (in_array($key, $this->omit)) continue;
                     $fullKey = $parents ? $parents . '.' . $key : $key;
+                    if (in_array($fullKey, $this->omit)) continue;
                     $newKey = isset($this->map[$fullKey]) ? $this->map[$fullKey] : $key;
                     $newArr[$newKey] = $this->remap($val, $fullKey);
                 }
